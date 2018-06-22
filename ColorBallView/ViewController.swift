@@ -10,13 +10,15 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var colorBallView: semiCircle!
+    @IBOutlet weak var colorBallView: ColorBallView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-//        colorBallView.isTouchEnable = true
+        colorBallView.isTouchEnable = true
+        colorBallView.trackingPonint = CGPoint(x: 100, y: 100)
+        
     }
 
     override func didReceiveMemoryWarning() {
