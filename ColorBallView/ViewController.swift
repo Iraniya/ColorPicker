@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        colorBallView.isTouchEnable = true
+        colorBallView.touchEnable = true
         colorBallView.trackingPonint = CGPoint(x: 100, y: 100)
         
     }
