@@ -425,8 +425,6 @@ class TopSliderLayer: CALayer {
             
             //shadow
             let shadowHeight = 2 - (4 * ((endAngleRad - 3.6) / 2.1))
-            print(endAngleRad)
-            print(shadowHeight)
             //Thumb
             let newX = center.x + (radius * cos(endAngleRad))
             let newY = center.y + (radius * sin(endAngleRad))
@@ -484,14 +482,15 @@ class BottomSliderLayer: CAShapeLayer {
             //ctx.setStrokeColor((colorBallView.bProgressColor.cgColor))
             ctx.addPath(ptrack.cgPath)
             ctx.strokePath()
-
+            let shadowHeight = 2 - (4 * ((endAngleRad - 0.5) / 2.1))
+           
             //Thumb
             let newX = center.x + (radius * cos(endAngleRad))
             let newY = center.y + (radius * sin(endAngleRad))
             let thumbRect = CGRect(x: newX - (colorBallView.thumbWidth/2 ), y: newY - (colorBallView.thumbWidth/2 ), width: colorBallView.thumbWidth, height: colorBallView.thumbWidth)
             let thumbPath = UIBezierPath(ovalIn: thumbRect)
             let shadowColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)
-            ctx.setShadow(offset:  CGSize(width: -2, height: -1), blur: 0.4, color: shadowColor.cgColor)
+            ctx.setShadow(offset:  CGSize(width: -2, height: shadowHeight), blur: 0.4, color: shadowColor.cgColor)
             ctx.addPath(thumbPath.cgPath)
             ctx.setFillColor(colorBallView.outsideColor.cgColor)
             ctx.fillPath()
