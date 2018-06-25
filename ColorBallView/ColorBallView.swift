@@ -450,43 +450,86 @@ class BottomSliderLayer: CAShapeLayer {
     var highlighted: Bool = false
     var width: CGFloat { return bounds.width }
     var height: CGFloat { return bounds.height }
-
+    
     override func draw(in ctx: CGContext) {
         if let colorBallView = colorBallView {
             
             //without gradient
             let center = CGPoint(x: bounds.width / 2, y: 0)
             let radius: CGFloat =  (bounds.width/2) - colorBallView.padding
-            let startAngle: CGFloat = CGFloat(colorBallView.bMaxVal).degreesToRadians //  CGFloat((5 * Double.pi) / 6 )
-            let endAngle: CGFloat = CGFloat(colorBallView.bMinVal).degreesToRadians  //CGFloat(( Double.pi) / 6)
+            let startAngle: CGFloat = CGFloat(colorBallView.bMaxVal).degreesToRadians
+            let endAngle: CGFloat = CGFloat(colorBallView.bMinVal).degreesToRadians
+            
+            let centerRad  = radius - colorBallView.pTrackWidth/2
+            let startAngleRad = CGFloat(colorBallView.bMaxVal).degreesToRadians
+            let mindPointX = center.x + (centerRad * cos(startAngleRad))
+            let midPointY = center.y + (centerRad * sin(startAngleRad))
+            let midPoint: CGPoint = CGPoint(x: mindPointX, y: midPointY)
+            
+            let tCRad  = radius - colorBallView.pTrackWidth/2 + colorBallView.trackWidth/2
+            let endAngleRad = CGFloat(colorBallView.bMinVal).degreesToRadians
+            let endMidPointX = center.x + (tCRad * cos(endAngleRad))
+            let endMidPointY = center.y + (tCRad * sin(endAngleRad))
+            let endMidPoint: CGPoint = CGPoint(x: endMidPointX, y: endMidPointY)
+            
             ctx.beginPath()
-
+            ctx.saveGState()
+            
             //Track
             let track = UIBezierPath()
-            track.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            track.addArc(withCenter: center, radius: radius - colorBallView.pTrackWidth/2, startAngle: startAngle, endAngle: endAngle, clockwise: false)
+            track.addArc(withCenter: endMidPoint, radius: colorBallView.trackWidth/2, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
+            track.addArc(withCenter: center, radius: radius - colorBallView.trackWidth , startAngle: endAngle, endAngle: startAngle, clockwise: true)
+            track.close()
+            ctx.setLineJoin(CGLineJoin.round)
             ctx.setLineCap(CGLineCap.round)
-            ctx.setLineWidth(colorBallView.trackWidth)
-            ctx.setStrokeColor(colorBallView.outsideColor.cgColor)
-            //ctx.setStrokeColor(colorBallView.bTrackColor.cgColor)
             ctx.addPath(track.cgPath)
-            ctx.strokePath()
-
+            ctx.clip()
+            ctx.fillPath()
+            
+            //Gradient fill
+            let colors = [#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1).cgColor, #colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1).cgColor, #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).cgColor, #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1).cgColor, #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1).cgColor]
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let colorLocations: [CGFloat] = [0.0, 0.25, 0.5, 0.75, 1.0]
+            let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations)!
+            let gStartPoint = CGPoint(x: 0, y: 0.5)
+            let gEndPoint = CGPoint(x: bounds.width, y: 0.5)
+            ctx.drawLinearGradient(gradient, start: gStartPoint, end: gEndPoint, options: [])
+            
+            ctx.restoreGState()
+            ctx.saveGState()
+//
             let pEndDegree = min(max((colorBallView.bMinVal), colorBallView.bProgressValue), colorBallView.bMaxVal)
-            let endAngleRad = CGFloat(pEndDegree).degreesToRadians
+            let pEndAngleRad = CGFloat(pEndDegree).degreesToRadians
 
             //progress Track
+            let startX = center.x + (radius * cos(startAngleRad))
+            let startY = center.y + (radius * sin(startAngleRad))
+
+            let startPoint: CGPoint = CGPoint(x: startX, y: startY)
+
             let ptrack = UIBezierPath()
-            ptrack.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: CGFloat(endAngleRad), clockwise: false)
+            ptrack.move(to: startPoint)
+            ptrack.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: CGFloat(pEndAngleRad), clockwise: false)
+            ptrack.addArc(withCenter: center, radius: radius - colorBallView.pTrackWidth , startAngle: CGFloat(pEndAngleRad), endAngle: startAngle, clockwise: true)
+
+            ptrack.addArc(withCenter: midPoint, radius: colorBallView.pTrackWidth/2, startAngle: 2 * startAngle, endAngle: startAngle, clockwise: false)
             ctx.setLineCap(CGLineCap.round)
-            ctx.setLineWidth((colorBallView.pTrackWidth))
-            //ctx.setStrokeColor((colorBallView.bProgressColor.cgColor))
             ctx.addPath(ptrack.cgPath)
-            ctx.strokePath()
-            let shadowHeight = 2 - (4 * ((endAngleRad - 0.5) / 2.1))
-           
+            ctx.clip()
+            ctx.fillPath()
+            
+            ctx.drawLinearGradient(gradient, start: gStartPoint, end: gEndPoint, options: [])
+
+            ctx.restoreGState()
+            ctx.saveGState()
+
+            let shadowHeight = 2 - (4 * ((pEndAngleRad - 0.5) / 2.1))
+
+            let newRadius = radius + colorBallView.trackWidth/2 - colorBallView.thumbWidth/2
             //Thumb
-            let newX = center.x + (radius * cos(endAngleRad))
-            let newY = center.y + (radius * sin(endAngleRad))
+            let newX = center.x + (newRadius * cos(pEndAngleRad))
+            let newY = center.y + (newRadius * sin(pEndAngleRad))
             let thumbRect = CGRect(x: newX - (colorBallView.thumbWidth/2 ), y: newY - (colorBallView.thumbWidth/2 ), width: colorBallView.thumbWidth, height: colorBallView.thumbWidth)
             let thumbPath = UIBezierPath(ovalIn: thumbRect)
             let shadowColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)
@@ -494,81 +537,6 @@ class BottomSliderLayer: CAShapeLayer {
             ctx.addPath(thumbPath.cgPath)
             ctx.setFillColor(colorBallView.outsideColor.cgColor)
             ctx.fillPath()
-            
-            
-            //with gradient
-            /*
-            ctx.clear(bounds)
-            //
-            let center = CGPoint(x: bounds.width / 2, y: 0)
-            let radius: CGFloat =  (bounds.width/2) - colorBallView.paddeding
-            let startAngle: CGFloat = CGFloat(colorBallView.bMaxVal).degreesToRadians
-            let endAngle: CGFloat = CGFloat(colorBallView.bMinVal).degreesToRadians
-           
-            ctx.saveGState()
-            ctx.beginPath()
-            
-//            //Track
-//            let track = UIBezierPath()
-//            track.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: false)
-//
-//            let trackShapeLayer = CAShapeLayer()
-//            trackShapeLayer.path = track.cgPath
-//            trackShapeLayer.lineWidth = colorBallView.trackWidth
-//            trackShapeLayer.lineCap = "round"
-//            trackShapeLayer.fillColor = UIColor.clear.cgColor
-//            trackShapeLayer.strokeColor = UIColor.red.cgColor
-//
-//            //draw gradient
-//            let trackGradient = CAGradientLayer()
-//            trackGradient.frame = bounds
-//            trackGradient.colors = [#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1).cgColor, #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).cgColor, #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1).cgColor, #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1).cgColor, #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).cgColor]
-//            trackGradient.startPoint = CGPoint(x: 0, y: 0.5)
-//            trackGradient.endPoint = CGPoint(x: 1, y: 0.5)
-//            trackGradient.locations = [0, 0.25, 0.5, 0.75, 1]
-//            self.addSublayer(trackGradient)
-//            trackGradient.mask = trackShapeLayer
-            
-            ctx.restoreGState()
-            ctx.saveGState()
-            let pEndDegree = min(max((colorBallView.bMinVal), colorBallView.bProgressValue), colorBallView.bMaxVal)
-            let endAngleRad = CGFloat(pEndDegree).degreesToRadians
-            
-            
-            //progress Track
-            let ptrack = UIBezierPath()
-            ptrack.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: CGFloat(endAngleRad), clockwise: false)
-            
-            let pTrackShapeLayer = CAShapeLayer()
-            pTrackShapeLayer.path = ptrack.cgPath
-            pTrackShapeLayer.lineWidth = colorBallView.pTrackWidth
-            pTrackShapeLayer.lineCap = "round"
-            pTrackShapeLayer.fillColor = UIColor.clear.cgColor
-            pTrackShapeLayer.strokeColor = UIColor.red.cgColor
-            
-            //draw gradient
-            let pTrackGradient = CAGradientLayer()
-            pTrackGradient.frame = bounds
-            pTrackGradient.colors = [#colorLiteral(red: 0.1764705926, green: 0.01176470611, blue: 0.5607843399, alpha: 1).cgColor, #colorLiteral(red: 0.5725490451, green: 0, blue: 0.2313725501, alpha: 1).cgColor, #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1).cgColor, #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1).cgColor, #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1).cgColor]
-            pTrackGradient.startPoint = CGPoint(x: 0, y: 0.5)
-            pTrackGradient.endPoint = CGPoint(x: 1, y: 0.5)
-            pTrackGradient.locations = [0, 0.25, 0.5, 0.75, 1]
-            self.addSublayer(pTrackGradient)
-            pTrackGradient.mask = pTrackShapeLayer
-            
-            ctx.restoreGState()
-            
-            //Thumb
-            let newX = center.x + (radius * cos(endAngleRad))
-            let newY = center.y + (radius * sin(endAngleRad))
-            let thumbRect = CGRect(x: newX - (colorBallView.thumbWidth/2 ), y: newY - (colorBallView.thumbWidth/2 ), width: colorBallView.thumbWidth, height: colorBallView.thumbWidth)
-            let thumbPath = UIBezierPath(ovalIn: thumbRect)
-            let shadowColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)
-            ctx.setShadow(offset:  CGSize(width: -2, height: 1), blur: 0.4, color: shadowColor.cgColor)
-            ctx.addPath(thumbPath.cgPath)
-            ctx.setFillColor(colorBallView.outsideColor.cgColor)
-            ctx.fillPath()
-            */
         }
     }
 }
