@@ -18,6 +18,7 @@ import QuartzCore
 import Foundation
 
 @objc public protocol ColorBallViewDelegate: NSObjectProtocol {
+    func colorBallView(_ colorBall: ColorBallView, andSelectedColor color: UIColor, withBrightness brightness: Int)
     @objc optional func colorBallView(_ colorBall: ColorBallView, topProgressValue value: Float) -> Float
     @objc optional func colorBallView(_ colorBall: ColorBallView, bottomProgressValue value: Float) -> Float
 }
@@ -134,9 +135,14 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
         }
     }
     
-    
     var selectedColor: UIColor = UIColor.red {
         didSet {
+            dBallLayer.setNeedsDisplay()
+        }
+    }
+    
+    var selectedBrighness: Int = 10 {
+        didSet{
             dBallLayer.setNeedsDisplay()
         }
     }
@@ -187,7 +193,6 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
         layer.addSublayer(colorBallLayer)
         
         updateLayerFrames()
-        
         stopTracking()
     }
     
@@ -234,9 +239,7 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
 
     override open func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
         
-        if !touchEnable {
-            return false
-        }
+        if !touchEnable { return false }
         
         resetLayers()
         startTracking()
@@ -255,19 +258,21 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
             let color = getPixelColorAtPoint(point: trackingPonint)
             print(color)
             selectedColor = color
+            delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
             return true
         }
         
         if tTrackLayer.frame.contains(previousLoaction) {
             tTrackLayer.highlighted = true
             getAngle(fromPoint: previousLoaction)
-            
+            delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
             return true
         }
         
         if bTrackLayer.frame.contains(previousLoaction) {
             bTrackLayer.highlighted = true
             getAngle(fromPoint: previousLoaction)
+            delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
             return true
         }
         
@@ -283,6 +288,7 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
                 //get the color from the ball
                 trackingPonint = previousLoaction
                 updateLayers()
+                delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
                 return true
             }
             resetLayers()
@@ -291,11 +297,13 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
         
         if tTrackLayer.highlighted {
             getAngle(fromPoint: previousLoaction)
+            delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
             return true
         }
         
         if bTrackLayer.highlighted {
             getAngle(fromPoint: previousLoaction)
+            delegate?.colorBallView(self, andSelectedColor: selectedColor, withBrightness: selectedBrighness)
             return true
         }
         resetLayers()
@@ -374,9 +382,9 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
     
     func getPixelColorAtPoint(point:CGPoint) -> UIColor {
         let pixel = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: 4)
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
+        let colorSpace = CGColorSpace(name: CGColorSpace.sRGB) //CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-        let context = CGContext(data: pixel, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+        let context = CGContext(data: pixel, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace!, bitmapInfo: bitmapInfo.rawValue)
         
         context?.translateBy(x: -point.x, y: -point.y)
         layer.render(in: context!)
@@ -426,6 +434,12 @@ class ColorballLayer: CALayer {
 //                if dist <= radius {
 //                    let finalTcX:CGFloat = min(max(0, tc.x), width)
 //                    let finalTcY:CGFloat = min(max(0, tc.y), height)
+//                    
+//                    let c = CGPoint(x: finalTcX, y: finalTcY)
+//                    print(c)
+//                    let pointInView = self.convert(c, to: colorBallView.layer)
+//                    let selectedColor = colorBallView.getPixelColorAtPoint(point: pointInView)
+//                    colorBallView.selectedColor = selectedColor
 //                    self.masksToBounds = false
 //                    let trackingCircle =  UIBezierPath()
 //                    trackingCircle.addArc(withCenter: CGPoint(x: finalTcX, y: finalTcY), radius: 8, startAngle: 0, endAngle: CGFloat(2 * Double.pi), clockwise: true)
@@ -435,7 +449,6 @@ class ColorballLayer: CALayer {
 //                    ctx.fillPath()
 //                }
 //            }
-            
         }
     }
     
@@ -525,7 +538,7 @@ class TopSliderLayer: CALayer {
             
             //Gradient fill
             let colors = colorBallView.tColorList
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)! //CGColorSpaceCreateDeviceRGB()
             let colorLocations: [CGFloat] = [0.0, 0.25, 0.5, 0.75, 1.0]
             let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations)!
             let gStartPoint = CGPoint(x: 0, y: 0.5)
@@ -628,16 +641,16 @@ class BottomSliderLayer: CALayer {
             
             //Gradient fill
             let colors = colorBallView.BColorList
-            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let colorSpace = CGColorSpace(name: CGColorSpace.sRGB)! //CGColorSpaceCreateDeviceRGB()
             let colorLocations: [CGFloat] = [0.0, 0.125, 0.375, 0.5, 0.725, 0.875, 1.0]
             let gradient = CGGradient(colorsSpace: colorSpace, colors: colors as CFArray, locations: colorLocations)!
-            let gStartPoint = CGPoint(x: colorBallView.padding, y: colorBallView.padding)
-            let gEndPoint = CGPoint(x: bounds.width - colorBallView.padding, y: bounds.height - colorBallView.padding)
+            let gStartPoint = CGPoint(x: 0, y: bounds.width/2)
+            let gEndPoint = CGPoint(x: bounds.width, y: bounds.width/2)
             ctx.drawLinearGradient(gradient, start: gStartPoint, end: gEndPoint, options: [])
             
             ctx.restoreGState()
             ctx.saveGState()
-            
+
             let pEndDegree = min(max((colorBallView.bMinVal), colorBallView.bProgressValue), colorBallView.bMaxVal)
             let pEndAngleRad = CGFloat(pEndDegree).degreesToRadians
             
@@ -645,30 +658,30 @@ class BottomSliderLayer: CALayer {
             let startX = center.x + (radius * cos(startAngleRad))
             let startY = center.y + (radius * sin(startAngleRad))
             let startPoint: CGPoint = CGPoint(x: startX, y: startY)
-            
+
             let ptrack = UIBezierPath()
             ptrack.move(to: startPoint)
             ptrack.addArc(withCenter: center, radius: radius, startAngle: startAngle, endAngle: CGFloat(pEndAngleRad), clockwise: false)
             ptrack.addArc(withCenter: center, radius: radius - colorBallView.pTrackWidth , startAngle: CGFloat(pEndAngleRad), endAngle: startAngle, clockwise: true)
-            
+
             ptrack.addArc(withCenter: midPoint, radius: colorBallView.pTrackWidth/2, startAngle: 2 * startAngle, endAngle: startAngle, clockwise: false)
             ctx.setLineCap(CGLineCap.round)
             ctx.addPath(ptrack.cgPath)
             ctx.clip()
             ctx.fillPath()
-            
+
             ctx.drawLinearGradient(gradient, start: gStartPoint, end: gEndPoint, options: [])
-            
+
             ctx.restoreGState()
             ctx.saveGState()
             
             //Thumb
             let shadowHeight = 2 - (4 * ((pEndAngleRad - 0.5) / 2.1))
             let newRadius = radius + colorBallView.trackWidth/2 - colorBallView.thumbWidth/2
-            
+
             let newX = center.x + (newRadius * cos(pEndAngleRad))
             let newY = center.y + (newRadius * sin(pEndAngleRad))
-           
+
             let thumbRect = CGRect(x: newX - (colorBallView.thumbWidth/2 ), y: newY - (colorBallView.thumbWidth/2 ), width: colorBallView.thumbWidth, height: colorBallView.thumbWidth)
             let c = CGPoint(x: newX, y: newY)
             print(c)
@@ -681,7 +694,7 @@ class BottomSliderLayer: CALayer {
             let shadowColor = #colorLiteral(red: 0.3333333333, green: 0.3333333333, blue: 0.3333333333, alpha: 0.5)
             ctx.setShadow(offset:  CGSize(width: -2, height: shadowHeight), blur: 0.4, color: shadowColor.cgColor)
             ctx.addPath(thumbPath.cgPath)
-            let thumbColor: UIColor = UIColor.white
+            let thumbColor: UIColor = selectedColor
             ctx.setFillColor(thumbColor.cgColor)
             ctx.fillPath()
         }

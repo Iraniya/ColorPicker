@@ -17,6 +17,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         colorBallView.touchEnable = true
+        colorBallView.delegate = self
         
     }
 
@@ -24,7 +25,12 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
+
+extension ViewController: ColorBallViewDelegate {
+    func colorBallView(_ colorBall: ColorBallView, andSelectedColor color: UIColor, withBrightness brightness: Int) {
+        print(color)
+        print(brightness)
+    }
+}

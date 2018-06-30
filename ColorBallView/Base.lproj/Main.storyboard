@@ -27,6 +27,15 @@
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="yVD-gF-aCd" secondAttribute="height" multiplier="1:1" id="3AJ-yB-XEV"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="touchEnable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="tProgressValue">
+                                        <real key="value" value="240"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="bProgressValue">
+                                        <real key="value" value="50"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="bgColor"/>
