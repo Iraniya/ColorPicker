@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:ColorBallView.xcodeproj">
+      location = "group:../../../Downloads/AngleGradientBorderTutorial-master/AngleGradientLayer">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
