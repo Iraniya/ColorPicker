@@ -37,22 +37,34 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhF-vM-zI0">
+                                <rect key="frame" x="138" y="572" width="100" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="je5-A8-fAG"/>
+                                    <constraint firstAttribute="height" constant="100" id="mHQ-gG-uZD"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="bgColor"/>
                         <constraints>
                             <constraint firstItem="yVD-gF-aCd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GfH-Kv-zL4"/>
                             <constraint firstItem="yVD-gF-aCd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Z3R-P9-9c3"/>
                             <constraint firstItem="yVD-gF-aCd" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="fqN-K9-O65"/>
+                            <constraint firstItem="vhF-vM-zI0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g7q-22-pcg"/>
+                            <constraint firstItem="vhF-vM-zI0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="5" id="wEB-aj-epq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="colorBallView" destination="yVD-gF-aCd" id="6Bf-vO-CGz"/>
+                        <outlet property="tempColorBox" destination="vhF-vM-zI0" id="yh3-kP-Jgk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="31.934032983508249"/>
         </scene>
     </scenes>
     <resources>
