@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1C107A7420DB961800AA7473 /* semiCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C107A7320DB961800AA7473 /* semiCircle.swift */; };
-		1C1CA28B20E3693B009B56BF /* AngleGradientBorderLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CA28A20E3693B009B56BF /* AngleGradientBorderLayer.swift */; };
-		1C1CA28D20E37308009B56BF /* AngleGradientBorderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C1CA28C20E37308009B56BF /* AngleGradientBorderView.swift */; };
 		1C7CE6F620D39E4000F8F3D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7CE6F520D39E4000F8F3D3 /* AppDelegate.swift */; };
 		1C7CE6F820D39E4000F8F3D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7CE6F720D39E4000F8F3D3 /* ViewController.swift */; };
 		1C7CE6FB20D39E4000F8F3D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7CE6F920D39E4000F8F3D3 /* Main.storyboard */; };
@@ -21,8 +19,6 @@
 /* Begin PBXFileReference section */
 		1C107A7320DB961800AA7473 /* semiCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = semiCircle.swift; sourceTree = "<group>"; };
 		1C1CA28620E36870009B56BF /* ColorBallView-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ColorBallView-Bridging-Header.h"; sourceTree = "<group>"; };
-		1C1CA28A20E3693B009B56BF /* AngleGradientBorderLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleGradientBorderLayer.swift; sourceTree = "<group>"; };
-		1C1CA28C20E37308009B56BF /* AngleGradientBorderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AngleGradientBorderView.swift; sourceTree = "<group>"; };
 		1C7CE6F220D39E4000F8F3D3 /* ColorBallView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorBallView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7CE6F520D39E4000F8F3D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7CE6F720D39E4000F8F3D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,8 +65,6 @@
 				1C7CE6F920D39E4000F8F3D3 /* Main.storyboard */,
 				1C7CE70720D39F5B00F8F3D3 /* ColorBallView.swift */,
 				1C107A7320DB961800AA7473 /* semiCircle.swift */,
-				1C1CA28A20E3693B009B56BF /* AngleGradientBorderLayer.swift */,
-				1C1CA28C20E37308009B56BF /* AngleGradientBorderView.swift */,
 				1C7CE6FC20D39E4100F8F3D3 /* Assets.xcassets */,
 				1C7CE6FE20D39E4100F8F3D3 /* LaunchScreen.storyboard */,
 				1C7CE70120D39E4100F8F3D3 /* Info.plist */,
@@ -151,8 +145,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C7CE6F820D39E4000F8F3D3 /* ViewController.swift in Sources */,
-				1C1CA28D20E37308009B56BF /* AngleGradientBorderView.swift in Sources */,
-				1C1CA28B20E3693B009B56BF /* AngleGradientBorderLayer.swift in Sources */,
 				1C7CE6F620D39E4000F8F3D3 /* AppDelegate.swift in Sources */,
 				1C7CE70820D39F5B00F8F3D3 /* ColorBallView.swift in Sources */,
 				1C107A7420DB961800AA7473 /* semiCircle.swift in Sources */,
