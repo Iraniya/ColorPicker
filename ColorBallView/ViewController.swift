@@ -10,8 +10,11 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var colorBallView: ColorBallView!
     @IBOutlet weak var tempColorBox: UIView!
+    @IBOutlet weak var colorViewWidth1: NSLayoutConstraint!
+    @IBOutlet weak var colorViewWidth2: NSLayoutConstraint!
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +24,29 @@ class ViewController: UIViewController {
         colorBallView.delegate = self
         
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func changeFrames(_ sender: UIButton!) {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1.0) {
+            self.colorViewWidth2.isActive = false
+            self.colorViewWidth1.isActive = true
+            self.view.layoutIfNeeded()
+//            self.colorBallView.layer.bounds = self.containerView.bounds
+//            self.colorBallView.layer.position = self.containerView.center
+        }
+       
+    }
+    
+    @IBAction func changeFramesAgian(_ sender: UIButton!) {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 1.0) {
+            self.colorViewWidth1.isActive = false
+            self.colorViewWidth2.isActive = true
+            self.view.layoutIfNeeded()
+//            self.colorBallView.layer.bounds = self.containerView.bounds
+//            self.colorBallView.layer.position = self.containerView.center
+            
+        }
     }
 }
 

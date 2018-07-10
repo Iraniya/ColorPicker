@@ -21,21 +21,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVD-gF-aCd" customClass="ColorBallView" customModule="ColorBallView" customModuleProvider="target">
-                                <rect key="frame" x="19.5" y="165.5" width="337.5" height="337"/>
-                                <color key="backgroundColor" name="bgColor"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xjK-Cx-Q0X">
+                                <rect key="frame" x="37.5" y="120" width="300" height="300"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVD-gF-aCd" customClass="ColorBallView" customModule="ColorBallView" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="touchEnable" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="tProgressValue">
+                                                <real key="value" value="240"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="bProgressValue">
+                                                <real key="value" value="50"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="yVD-gF-aCd" secondAttribute="height" multiplier="1:1" id="3AJ-yB-XEV"/>
+                                    <constraint firstAttribute="trailing" secondItem="yVD-gF-aCd" secondAttribute="trailing" id="1H4-Fp-2eU"/>
+                                    <constraint firstAttribute="bottom" secondItem="yVD-gF-aCd" secondAttribute="bottom" id="2TK-Cg-Lyr"/>
+                                    <constraint firstItem="yVD-gF-aCd" firstAttribute="leading" secondItem="xjK-Cx-Q0X" secondAttribute="leading" id="8GQ-6F-UF2"/>
+                                    <constraint firstAttribute="width" secondItem="xjK-Cx-Q0X" secondAttribute="height" multiplier="1:1" id="8ao-OT-0WF"/>
+                                    <constraint firstItem="yVD-gF-aCd" firstAttribute="top" secondItem="xjK-Cx-Q0X" secondAttribute="top" id="cZu-dO-Xqk"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="touchEnable" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="tProgressValue">
-                                        <real key="value" value="240"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="bProgressValue">
-                                        <real key="value" value="50"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhF-vM-zI0">
                                 <rect key="frame" x="138" y="572" width="100" height="100"/>
@@ -45,20 +55,45 @@
                                     <constraint firstAttribute="height" constant="100" id="mHQ-gG-uZD"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7O-iM-8r4">
+                                <rect key="frame" x="53" y="529" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="changeFrames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m4K-rQ-7c9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0At-tM-zgs">
+                                <rect key="frame" x="288" y="529" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="changeFramesAgian:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awX-to-fjG"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" name="bgColor"/>
                         <constraints>
-                            <constraint firstItem="yVD-gF-aCd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GfH-Kv-zL4"/>
-                            <constraint firstItem="yVD-gF-aCd" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Z3R-P9-9c3"/>
-                            <constraint firstItem="yVD-gF-aCd" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9" id="fqN-K9-O65"/>
+                            <constraint firstItem="xjK-Cx-Q0X" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="E1f-e6-qgv"/>
+                            <constraint firstItem="xjK-Cx-Q0X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RA9-og-uGu"/>
+                            <constraint firstItem="xjK-Cx-Q0X" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="Woj-QW-R3Q"/>
                             <constraint firstItem="vhF-vM-zI0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g7q-22-pcg"/>
+                            <constraint firstItem="xjK-Cx-Q0X" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="sAW-ou-NWQ"/>
                             <constraint firstItem="vhF-vM-zI0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="5" id="wEB-aj-epq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Woj-QW-R3Q"/>
+                            </mask>
+                        </variation>
                     </view>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="colorBallView" destination="yVD-gF-aCd" id="6Bf-vO-CGz"/>
+                        <outlet property="colorViewWidth1" destination="Woj-QW-R3Q" id="He3-KC-aa4"/>
+                        <outlet property="colorViewWidth2" destination="E1f-e6-qgv" id="S6V-k4-t0o"/>
+                        <outlet property="containerView" destination="xjK-Cx-Q0X" id="arO-DA-YkG"/>
                         <outlet property="tempColorBox" destination="vhF-vM-zI0" id="yh3-kP-Jgk"/>
                     </connections>
                 </viewController>

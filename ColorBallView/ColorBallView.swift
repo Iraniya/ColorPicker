@@ -158,7 +158,10 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
     let bTrackLayer = BottomSliderLayer()
     let colorBallLayer = ColorballLayer()
     
-    override open var frame: CGRect { didSet { updateLayerFrames() } }
+    override open var frame: CGRect { didSet {
+        updateLayerFrames()
+        
+        } }
     override open func layoutSubviews() { updateLayerFrames() }
     
     // MARK: - Initialization
@@ -204,7 +207,7 @@ open class ColorBallView: UIControl, CAAnimationDelegate {
     func updateLayerFrames() {
         
         CATransaction.begin()
-        CATransaction.setDisableActions(true)
+        CATransaction.setDisableActions(false)
         
         //frams for defusion ball
         let dPadding: CGFloat = self.bounds.width - padding
