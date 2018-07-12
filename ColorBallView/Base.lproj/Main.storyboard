@@ -26,7 +26,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yVD-gF-aCd" customClass="ColorBallView" customModule="ColorBallView" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="touchEnable" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="tProgressValue">
@@ -38,7 +38,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="PrimaryColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="yVD-gF-aCd" secondAttribute="trailing" id="1H4-Fp-2eU"/>
                                     <constraint firstAttribute="bottom" secondItem="yVD-gF-aCd" secondAttribute="bottom" id="2TK-Cg-Lyr"/>
@@ -48,29 +48,13 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhF-vM-zI0">
-                                <rect key="frame" x="138" y="572" width="100" height="100"/>
+                                <rect key="frame" x="163" y="597" width="50" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="je5-A8-fAG"/>
-                                    <constraint firstAttribute="height" constant="100" id="mHQ-gG-uZD"/>
+                                    <constraint firstAttribute="width" constant="50" id="je5-A8-fAG"/>
+                                    <constraint firstAttribute="height" constant="50" id="mHQ-gG-uZD"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L7O-iM-8r4">
-                                <rect key="frame" x="53" y="529" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="changeFrames:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m4K-rQ-7c9"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0At-tM-zgs">
-                                <rect key="frame" x="288" y="529" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="changeFramesAgian:" destination="BYZ-38-t0r" eventType="touchUpInside" id="awX-to-fjG"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" name="bgColor"/>
                         <constraints>
@@ -78,8 +62,8 @@
                             <constraint firstItem="xjK-Cx-Q0X" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="RA9-og-uGu"/>
                             <constraint firstItem="xjK-Cx-Q0X" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.4" id="Woj-QW-R3Q"/>
                             <constraint firstItem="vhF-vM-zI0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="g7q-22-pcg"/>
+                            <constraint firstAttribute="bottom" secondItem="vhF-vM-zI0" secondAttribute="bottom" constant="20" id="kTa-TP-t6e"/>
                             <constraint firstItem="xjK-Cx-Q0X" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="100" id="sAW-ou-NWQ"/>
-                            <constraint firstItem="vhF-vM-zI0" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="5" id="wEB-aj-epq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
@@ -103,6 +87,9 @@
         </scene>
     </scenes>
     <resources>
+        <namedColor name="PrimaryColor">
+            <color red="0.20700000230000001" green="0.22200000289999999" blue="0.21600000559999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="bgColor">
             <color red="0.16899999979999999" green="0.17299999299999999" blue="0.16599999369999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
