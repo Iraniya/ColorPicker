@@ -14,6 +14,8 @@
 		1C7CE6FD20D39E4100F8F3D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7CE6FC20D39E4100F8F3D3 /* Assets.xcassets */; };
 		1C7CE70020D39E4100F8F3D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7CE6FE20D39E4100F8F3D3 /* LaunchScreen.storyboard */; };
 		1C7CE70820D39F5B00F8F3D3 /* ColorBallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7CE70720D39F5B00F8F3D3 /* ColorBallView.swift */; };
+		1CA8051120F7692C006475F9 /* picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8051020F7692C006475F9 /* picker.swift */; };
+		1CA8051320F76F35006475F9 /* ColorSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA8051220F76F35006475F9 /* ColorSlider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +29,8 @@
 		1C7CE6FF20D39E4100F8F3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C7CE70120D39E4100F8F3D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C7CE70720D39F5B00F8F3D3 /* ColorBallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorBallView.swift; sourceTree = "<group>"; };
+		1CA8051020F7692C006475F9 /* picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picker.swift; sourceTree = "<group>"; };
+		1CA8051220F76F35006475F9 /* ColorSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSlider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +68,8 @@
 				1C7CE6F720D39E4000F8F3D3 /* ViewController.swift */,
 				1C7CE6F920D39E4000F8F3D3 /* Main.storyboard */,
 				1C7CE70720D39F5B00F8F3D3 /* ColorBallView.swift */,
+				1CA8051020F7692C006475F9 /* picker.swift */,
+				1CA8051220F76F35006475F9 /* ColorSlider.swift */,
 				1C107A7320DB961800AA7473 /* semiCircle.swift */,
 				1C7CE6FC20D39E4100F8F3D3 /* Assets.xcassets */,
 				1C7CE6FE20D39E4100F8F3D3 /* LaunchScreen.storyboard */,
@@ -147,6 +153,8 @@
 				1C7CE6F820D39E4000F8F3D3 /* ViewController.swift in Sources */,
 				1C7CE6F620D39E4000F8F3D3 /* AppDelegate.swift in Sources */,
 				1C7CE70820D39F5B00F8F3D3 /* ColorBallView.swift in Sources */,
+				1CA8051120F7692C006475F9 /* picker.swift in Sources */,
+				1CA8051320F76F35006475F9 /* ColorSlider.swift in Sources */,
 				1C107A7420DB961800AA7473 /* semiCircle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
